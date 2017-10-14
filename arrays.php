@@ -1,98 +1,113 @@
 <?php
+//turn on debugging messages
+ini_set('display_errors', 'On');
+error_reporting(E_ALL);
 
 	$obj = new main();
 	$band = "The Beatles";
     $members = array('Paul McCartney','John Lennon','Ringo Starr','George Harrison');
     
-	$obj->printArray($members);
-    $obj->rsortArray($members);
-    $obj->countArray($members);
-    $obj->shuffleArray($members);
-    $obj->reverseArray($members);
-    $obj->sliceArray($members);
-    $obj->pushArray($members);
-    $obj->shiftArray($members);
-    $obj->popArray($members);
-    $obj->unshiftArray($members);
 
 class main {
-
+      private $html;
+	
+	
     public function __construct() {
-		echo '<h1>Construct Function. Arrays</h1>';
-        echo '<hr>';
-    }
-
-   
-	public function printArray($members) {
-      echo '<h1>Print_r function</h1>';
-      print_r($members);
+         
+		$band = "The Beatles";
+        $members = array('Paul McCartney','John Lennon','Ringo Starr','George Harrison');
 		
-      echo '<hr>';
+		$this->html  .= printHtml::printTitleH1('Print r array');
+		$this->html .= arrayFunctions::printArray($members);
+		$this->html .= printHtml::horizRule();
+		$this->html .= printHtml::printTitleH1('Count Elements');
+		$this->html .= arrayFunctions::countArray($members);
+		$this->html .= printHtml::horizRule();
+		$this->html .= printHtml::printTitleH1('descending sort function then echo index 2');
+		$this->html .= arrayFunctions::rsortArray($members);
+		$this->html .= printHtml::horizRule();
+		$this->html .= printHtml::printTitleH1('Shuffle array');
+		$this->html .= arrayFunctions::shuffleArray($members);
+		$this->html .= printHtml::horizRule();
+		$this->html .= printHtml::printTitleH1('Reverse Array');
+		$this->html .= arrayFunctions::reverseArray($members);
+		$this->html .= printHtml::horizRule();
+		$this->html .= printHtml::printTitleH1('Slice 2 array');
+		$this->html .= arrayFunctions::sliceArray($members);
+		$this->html .= printHtml::horizRule();
+		$this->html .= printHtml::printTitleH1('Push Array');
+		$this->html .= arrayFunctions::pushArray($members);
+		$this->html .= printHtml::horizRule();
+		$this->html .= printHtml::printTitleH1('Shift Array');
+		$this->html .= arrayFunctions::shiftArray($members);
+		$this->html .= printHtml::horizRule();
+		$this->html .= printHtml::printTitleH1('Pop Array');
+		$this->html .= arrayFunctions::popArray($members);
+		$this->html .= printHtml::horizRule();
+		$this->html .= printHtml::printTitleH1('unShift Array');
+		$this->html .= arrayFunctions::unshiftArray($members);
+    }
+	 public function __destruct() {
+         // printHtml::printTitleH1($this->html);
+		  //printHtml::printTitleH1($title);
+		  printHtml::horizRule($this->html);
+    }
+}
+  
+class arrayFunctions { 
+	static public function printArray($members) {
+      print_r($members);
     }
 	  
-	public function countArray($members) {
-      echo '<h1>count elements function</h1>';
+	static public function countArray($members) {
       echo count($members);
-      echo '<hr>';
     }
-	  public function rsortArray($members) {
-      echo '<h1>descending sort function then echo index 2</h1>';
+	 static public function rsortArray($members) {
        rsort($members);
-		echo $members[2];
-      echo '<hr>';
+		 print_r($members);
     }
-	public function shuffleArray($members) {
-      echo '<h1>Shuffle function</h1>';
+	static public function shuffleArray($members) {
        shuffle($members);
 		print_r($members);
-      echo '<hr>';
     }
-	public function reverseArray($members) {
-      echo '<h1>Reverse function</h1>';
+	static public function reverseArray($members) {
       $members = array_reverse($members);
 		print_r($members);
-      echo '<hr>';
     }
-	public function sliceArray($members) {
-      echo '<h1>Slice 2 function</h1>';
+	static public function sliceArray($members) {
       $members = array_slice($members, 2);
 		print_r($members);
-      echo '<hr>';
     }
-	public function pushArray($members) {
-      echo '<h1>Push function</h1>';
+	static public function pushArray($members) {
       array_push($members, 'Bob Sagot');
 		print_r($members);
-      echo '<hr>';
     }
-	public function shiftArray($members) {
-      echo '<h1>Shift function</h1>';
+	static public function shiftArray($members) {
       $next = array_shift($members);
 		print_r($next);
-      echo '<hr>';
     }
-	 public function popArray($members) {
-      echo '<h1>Pop function</h1>';
+	static public function popArray($members) {
       $last = array_pop($members);
 		print_r($last);
-      echo '<hr>';
     }
-	public function unshiftArray($members) {
-      echo '<h1>unShift function</h1>';
+	static public function unshiftArray($members) {
       array_unshift($members, 'Fred Savage');
 		print_r($members);
-      echo '<hr>';
     }
 	  
-	  public function __destruct() {
 
-      echo '</br> Done';
-	
+  } //end class 
 
+class printHtml {
+	static public function horizRule() {
+      echo '<hr>';
     }
-
-
-  }
+	static public function printTitleH1($text){
+		echo '<h1>' . $text . '</h1>'; 
+	}
+	
+	
+}
 
 
 
